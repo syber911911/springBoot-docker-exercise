@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
-    @RequestMapping("/hello")
-    public String main() {
-        return "index";
+    @GetMapping("/hello")
+    public String helloPage() {
+        return "redirect:/index.html";
     }
 }
