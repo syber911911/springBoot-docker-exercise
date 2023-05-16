@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @RestController
 public class HelloController {
     @PostMapping("/webhook")
-    public ResponseEntity<String> currentTime() {
+    public String currentTime() {
         String webhookUrl = "https://discord.com/api/webhooks/1090549186040184913/_nVKm8TfNkMjjZDz2lgNqbVQBmciLcgii6trO7nXIEz7LAtMHVRBXkSVwoSd-nYRGxzU";
 
         HttpHeaders headers = new HttpHeaders();
@@ -23,7 +23,11 @@ public class HelloController {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.exchange(webhookUrl, HttpMethod.POST, entity, String.class);
 
-        return response;
+        if (response.getStatusCode().is2xxSuccessful()) {
+            return "Webhook sent successfully";
+        } else {
+            return "Failed to send webhook";
+        }
     }
 
     @GetMapping("/hello")
